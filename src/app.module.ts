@@ -10,15 +10,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       envFilePath: ['.env.development.local', '.env.development'],
     }),
     TypeOrmModule.forRoot({
-      database: process.env.DB_DATABASE,
+      type: 'postgres',
       host: process.env.DB_HOST,
-      password: process.env.DB_PASSWORD,
       port: Number(process.env.DB_PORT),
       username: process.env.DB_USERNAME,
-      type: 'postgres',
-      
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      entities: [`${__dirname}/**/*.entity{.ts,.js}`],
+      synchronize: true,
     }),
-    UserModule],
+    
+    UserModule,
+  ],
   controllers: [],
   providers: [],
 })
