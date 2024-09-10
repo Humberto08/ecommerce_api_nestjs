@@ -15,7 +15,7 @@ export class UserController {
     return this.userService.createUser(createUser);
   }
 
-  @Get('/all')
+  @Get()
   async getAllUser(): Promise<ReturnUserDto[]> {
     return (await this.userService.getAllUser()).map(
       (userEntity) => new ReturnUserDto(userEntity),
@@ -28,4 +28,6 @@ export class UserController {
       await this.userService.getUserByIdUsingRelations(userId),
     );
   }
+
+
 }
