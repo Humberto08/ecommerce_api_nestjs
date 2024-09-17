@@ -8,6 +8,9 @@ import { CityService } from '../city/city.service';
 
 @Injectable()
 export class AddressService {
+  findAddressByUserId(id: number) {
+      throw new Error('Method not implemented.');
+  }
   constructor(
     @InjectRepository(AddressEntity)
     private readonly addressRepository: Repository<AddressEntity>,
