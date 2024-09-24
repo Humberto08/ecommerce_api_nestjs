@@ -18,7 +18,7 @@ export class CategoryController {
     return await this.categoryService.findAllCategories();
   }
 
-  @Roles(UserType.Admin, UserType.User)
+  @Roles(UserType.Admin, UserType.Root)
   @UsePipes(ValidationPipe)
   @Post()
   async createCategory(
