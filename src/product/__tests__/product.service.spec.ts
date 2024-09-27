@@ -8,7 +8,7 @@ import { createProductMock } from '../__mocks__/create-product.mock';
 import { CategoryService } from '../../category/category.service';
 import { categoryMock } from '../../category/__mocks__/category.mock';
 import { returnDeleteMock } from '../../__mocks__/return-delete.mock';
-import { updateProductMock } from '../__mocks__/update-product.mock';
+
 
 describe('ProductService', () => {
   let service: ProductService;
