@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Post,
   UsePipes,
   ValidationPipe,
@@ -40,6 +41,14 @@ export class CartController {
 
   @Delete()
   async clearCart(@UserId() userId: number): Promise<DeleteResult> {
-    return await this.cartService.clearCart(userId);
+    return this.cartService.clearCart(userId);
+  }
+
+  @Delete('product/:productId')
+  async deleteProductCart(
+    @Param('productId') productId: number,
+    @UserId() userId: number,
+  ): Promise<DeleteResult> {
+    return await this.cartService.deleteProductCart(productId, userId);
   }
 }

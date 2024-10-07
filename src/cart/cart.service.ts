@@ -18,10 +18,10 @@ export class CartService {
 
   async clearCart(userId: number): Promise<DeleteResult> {
     const cart = await this.findCartByUserId(userId, true);
-    
-    await this.cartRepository.save({ 
-      ...cart, 
-      active: false 
+
+    await this.cartRepository.save({
+      ...cart,
+      active: false,
     });
 
     return {
@@ -76,4 +76,15 @@ export class CartService {
 
     return cart;
   }
+
+  async deleteProductCart(
+    productId: number,
+    userId: number,
+  ): Promise<DeleteResult> {
+    const cart = await this.findCartByUserId(userId, true);
+
+    return this.cartProductService.deleteProductCart(productId, cart.id);
+  }
+
+  
 }
