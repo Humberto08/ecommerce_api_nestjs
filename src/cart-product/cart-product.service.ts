@@ -5,6 +5,7 @@ import { DeleteResult, Repository } from 'typeorm';
 import { InsertCartDto } from '../cart/dtos/insert-cart.dto';
 import { CartEntity } from '../cart/entities/cart.entity';
 import { ProductService } from '../product/product.service';
+import { UpdateCartDto } from '../cart/dtos/update-cart.dto';
 
 @Injectable()
 export class CartProductService {
@@ -64,6 +65,23 @@ export class CartProductService {
     return this.cartProductRepository.save({
       ...cartProduct,
       amount: cartProduct.amount + insertCartDto.amount,
+    });
+  }
+
+  async updateProductInCart(
+    updateCartDto: UpdateCartDto,
+    cart: CartEntity,
+  ): Promise<CartProductEntity> {
+    await this.productService.findProductById(updateCartDto.productId);
+
+    const cartProduct = await this.verifyProductInCart(
+      updateCartDto.productId,
+      cart.id,
+    );
+
+    return this.cartProductRepository.save({
+      ...cartProduct,
+      amount: updateCartDto.amount,
     });
   }
 
