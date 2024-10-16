@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/common';
-import { ReturnCategory } from './dtos/return-category.dto';
+import { ReturnCategoryDto } from './dtos/return-category.dto';
 import { CategoryService } from './category.service';
 import { Roles } from '../decorators/roles.decorator';
 import { UserType } from '../user/enum/user-type.enum';
@@ -14,7 +14,7 @@ export class CategoryController {
     ) {}
 
   @Get()
-  async findAllCategories(): Promise<ReturnCategory[]> {
+  async findAllCategories(): Promise<ReturnCategoryDto[]> {
     return await this.categoryService.findAllCategories();
   }
 
