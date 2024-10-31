@@ -7,12 +7,11 @@ import { UserId } from '../decorators/user-id.decorator';
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
-  @Post('/cart/:cartId')
+  @Post()
   async createOrder(
     @Body() createOrderDto: CreateOrderDto,
-    @Param('cartId') cartId: number,
     @UserId() userId: number,
   ) {
-    return this.orderService.createOrder(createOrderDto, cartId, userId);
+    return this.orderService.createOrder(createOrderDto,  userId);
   }
 }
