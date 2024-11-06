@@ -181,7 +181,7 @@ describe('CartService', () => {
     expect(cart).toEqual(cartMock);
     expect(spyCartProductService.mock.calls.length).toEqual(1);
     expect(spySave.mock.calls.length).toEqual(0);
-  })
+  });
 
   it('should return cart in createCart', async () => {
     jest.spyOn(cartRepository, 'findOne').mockResolvedValueOnce(undefined);
@@ -193,5 +193,5 @@ describe('CartService', () => {
 
     expect(cart).toEqual(cartMock);
     expect(spySave.mock.calls.length).toEqual(1);
-  })
+  });
 });

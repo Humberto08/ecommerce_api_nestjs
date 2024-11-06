@@ -13,7 +13,7 @@ export class OrderController {
     @Body() createOrderDto: CreateOrderDto,
     @UserId() userId: number,
   ) {
-    return this.orderService.createOrder(createOrderDto,  userId);
+    return this.orderService.createOrder(createOrderDto, userId);
   }
 
   @Get()

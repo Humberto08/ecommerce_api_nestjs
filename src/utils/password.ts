@@ -1,4 +1,4 @@
-import { compare, hash } from "bcrypt";
+import { compare, hash } from 'bcrypt';
 
 export const createPasswordHashed = async (
   password: string,
@@ -12,4 +12,4 @@ export const validatePassword = async (
   passwordHashed: string,
 ): Promise<boolean> => {
   return compare(password, passwordHashed);
-}
+};

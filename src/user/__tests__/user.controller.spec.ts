@@ -76,5 +76,4 @@ describe('UserController', () => {
 
     expect(user).toEqual(userEntityMock);
   });
-  
 });

@@ -17,10 +17,10 @@ export class OrderProductService {
     amount: number,
   ): Promise<OrderProductEntity> {
     return this.orderProductRepository.save({
-        amount,
-        orderId,
-        price,
-        productId,
+      amount,
+      orderId,
+      price,
+      productId,
     });
   }
 }

@@ -5,7 +5,6 @@ import { StateEntity } from '../entities/state.entity';
 import { StateService } from '../state.service';
 import { stateMock } from '../__mocks__/state.mock';
 
-
 describe('StateService', () => {
   let service: StateService;
   let stateRepository: Repository<StateEntity>;

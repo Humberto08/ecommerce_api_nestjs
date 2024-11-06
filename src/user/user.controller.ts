@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
@@ -7,7 +16,6 @@ import { UpdatePasswordDto } from './dtos/update-password.dto';
 import { UserId } from '../decorators/user-id.decorator';
 import { Roles } from '../decorators/roles.decorator';
 import { UserType } from './enum/user-type.enum';
-
 
 @Controller('user')
 export class UserController {

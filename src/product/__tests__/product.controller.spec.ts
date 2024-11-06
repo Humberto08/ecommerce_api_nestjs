@@ -7,8 +7,8 @@ import { returnDeleteMock } from '../../__mocks__/return-delete.mock';
 import { updateProductMock } from '../__mocks__/update-product.mock';
 
 describe('ProductController', () => {
-    let controller: ProductController;
-    let productService: ProductService;
+  let controller: ProductController;
+  let productService: ProductService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -76,5 +76,4 @@ describe('ProductController', () => {
 
     expect(product).toEqual(productMock);
   });
-
 });

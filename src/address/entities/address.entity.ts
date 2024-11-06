@@ -1,8 +1,16 @@
-import { OrderEntity } from "../../order/entities/order.entity";
-import { CityEntity } from "../../city/entities/city.entity";
-import { UserEntity } from "../../user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-
+import { OrderEntity } from '../../order/entities/order.entity';
+import { CityEntity } from '../../city/entities/city.entity';
+import { UserEntity } from '../../user/entities/user.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity({ name: 'address' })
 export class AddressEntity {

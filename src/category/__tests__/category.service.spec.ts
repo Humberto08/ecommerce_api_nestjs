@@ -91,6 +91,4 @@ describe('CategoryService', () => {
 
     expect(service.findCategoryById(categoryMock.id)).rejects.toThrow();
   });
-
-    
 });

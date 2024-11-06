@@ -19,8 +19,6 @@ import { PaymentModule } from './payment/payment.module';
 import { OrderModule } from './order/order.module';
 import { OrderProductModule } from './order-product/order-product.module';
 
-
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -37,17 +35,17 @@ import { OrderProductModule } from './order-product/order-product.module';
       migrations: [`${__dirname}/migration/{.ts,*.js}`],
       migrationsRun: true,
     }),
-    
+
     UserModule,
-    
+
     StateModule,
-    
+
     AddressModule,
-    
+
     CityModule,
-    
+
     CacheModule,
-    
+
     AuthModule,
 
     JwtModule,
@@ -67,13 +65,13 @@ import { OrderProductModule } from './order-product/order-product.module';
     OrderModule,
 
     OrderProductModule,
-
   ],
   controllers: [],
-  providers: [{
-    provide: APP_GUARD,
-    useClass: RolesGuard,
-  },
-],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

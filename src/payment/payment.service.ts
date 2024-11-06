@@ -20,7 +20,6 @@ export class PaymentService {
   generateFinalPrice(cart: CartEntity, products: ProductEntity[]) {
     if (!cart.cartProduct || cart.cartProduct.length === 0) {
       return 0;
-      
     }
     return cart.cartProduct
       .map((cartProduct: CartProductEntity) => {

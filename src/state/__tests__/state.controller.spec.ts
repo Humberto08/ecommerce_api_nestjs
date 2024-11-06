@@ -29,9 +29,9 @@ describe('StateController', () => {
     expect(stateService).toBeDefined();
   });
 
-  it('should return stateEntity in getAllState', async () =>{
+  it('should return stateEntity in getAllState', async () => {
     const state = await controller.getAllState();
-    
+
     expect(state).toEqual([stateMock]);
-  })
+  });
 });

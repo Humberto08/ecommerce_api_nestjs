@@ -23,8 +23,8 @@ export class CategoryService {
 
   async findCategoryById(categoryId: number): Promise<CategoryEntity> {
     const category = await this.categoryRepository.findOne({
-      where: { 
-        id: categoryId 
+      where: {
+        id: categoryId,
       },
     });
 
@@ -55,7 +55,9 @@ export class CategoryService {
     );
 
     if (category) {
-      throw new NotFoundException(`Category ${createCategory.name} already exists`);
+      throw new NotFoundException(
+        `Category ${createCategory.name} already exists`,
+      );
     }
 
     return this.categoryRepository.save(createCategory);
