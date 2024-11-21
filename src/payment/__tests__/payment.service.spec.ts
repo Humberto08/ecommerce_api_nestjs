@@ -14,7 +14,8 @@ import { paymentPixMock } from '../__mocks__/payment-pix.mock';
 import { PaymentPixEntity } from '../entities/payment-pix.entity';
 import { paymentCreditCardMock } from '../__mocks__/payment-credit-card.mock';
 import { PaymentCreditCardEntity } from '../entities/payment-credit-card.entity';
-
+import { cartProductMock } from '../../cart-product/__mocks__/cart-product.mock';
+import { PaymentType } from '../../payment-status/enums/payment-type.enum';
 
 describe('PaymentService', () => {
   let service: PaymentService;
@@ -85,5 +86,54 @@ describe('PaymentService', () => {
         cartMock,
       ),
     ).rejects.toThrow();
+  });
+
+  it('should return final price 0 in cartProduct undefined', async () => {
+    const spy = jest.spyOn(paymentRepository, 'save');
+    await service.createPayment(
+      createOrderCreditCardMock,
+      [productMock],
+      cartMock,
+    );
+
+    const savePayment: PaymentCreditCardEntity = spy.mock
+      .calls[0][0] as PaymentCreditCardEntity;
+
+    expect(savePayment.finalPrice).toEqual(0);
+  });
+
+  it('should return final price send cartProduct', async () => {
+    const spy = jest.spyOn(paymentRepository, 'save');
+    await service.createPayment(createOrderCreditCardMock, [productMock], {
+      ...cartMock,
+      cartProduct: [cartProductMock],
+    });
+
+    const savePayment: PaymentCreditCardEntity = spy.mock
+      .calls[0][0] as PaymentCreditCardEntity;
+
+    expect(savePayment.finalPrice).toEqual(450000);
+  });
+
+  it('should return all data in save payment', async () => {
+    const spy = jest.spyOn(paymentRepository, 'save');
+    await service.createPayment(createOrderCreditCardMock, [productMock], {
+      ...cartMock,
+      cartProduct: [cartProductMock],
+    });
+
+    const savePayment: PaymentCreditCardEntity = spy.mock
+      .calls[0][0] as PaymentCreditCardEntity;
+
+    const paymentCreditCard: PaymentCreditCardEntity =
+      new PaymentCreditCardEntity(
+        PaymentType.Done,
+        450000,
+        0,
+        450000,
+        createOrderCreditCardMock,
+      );
+
+    expect(savePayment).toEqual(paymentCreditCard);
   });
 });
