@@ -1,4 +1,5 @@
 import { ProductEntity } from '../entities/product.entity';
+import { ReturnCategoryDto } from '../../category/dtos/return-category.dto';
 
 export class ReturnProduct {
   id: number;
@@ -8,14 +9,18 @@ export class ReturnProduct {
   categoryId: number;
   createdAt: Date;
   updatedAt: Date;
+  category?: ReturnCategoryDto;
 
-  constructor(product: ProductEntity) {
-    this.id = product.id;
-    this.name = product.name;
-    this.price = product.price;
-    this.image = product.image;
-    this.categoryId = product.categoryId;
-    this.createdAt = product.createdAt;
-    this.updatedAt = product.updatedAt;
+  constructor(productEntity: ProductEntity) {
+    this.id = productEntity.id;
+    this.name = productEntity.name;
+    this.price = productEntity.price;
+    this.image = productEntity.image;
+    this.categoryId = productEntity.categoryId;
+    this.createdAt = productEntity.createdAt;
+    this.updatedAt = productEntity.updatedAt;
+    this.category = productEntity.category
+      ? new ReturnCategoryDto(productEntity.category)
+      : undefined;
   }
 }
