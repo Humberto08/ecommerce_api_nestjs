@@ -15,6 +15,7 @@ import { cartProductMock } from '../../cart-product/__mocks__/cart-product.mock'
 import { productMock } from '../../product/__mocks__/product.mock';
 import { createOrderPixMock } from '../__mocks__/create-order.mock';
 import { paymentMock } from '../../payment/__mocks__/payment.mock';
+import { NotFoundException } from '@nestjs/common';
 
 jest.useFakeTimers().setSystemTime(new Date('2022-01-01'));
 
@@ -185,5 +186,25 @@ describe('OrderService', () => {
     expect(spySave.mock.calls.length).toEqual(1);
     expect(spyOrderProductService.mock.calls.length).toEqual(1);
     expect(spyCartServiceClear.mock.calls.length).toEqual(1);
+  });
+
+  it('should return orders', async () => {
+    const spy = jest.spyOn(orderRepositoty, 'find');
+    const orders = await service.findAllOrders();
+
+    expect(orders).toEqual([orderMock]);
+    expect(spy.mock.calls[0][0]).toEqual({
+      relations: {
+        user: true,
+      },
+    });
+  });
+
+  it('should error in not found', async () => {
+    jest.spyOn(orderRepositoty, 'find').mockResolvedValue([]);
+
+    expect(service.findAllOrders()).rejects.toThrow(
+      new NotFoundException('Orders Not found.'),
+    );
   });
 });
