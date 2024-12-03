@@ -7,6 +7,9 @@ import { ReturnOrderProductDto } from '../../order-product/dtos/return-order-pro
 export class ReturnOrderDto {
   id: number;
   date: String;
+  userId: number;
+  addressId: number;
+  paymentId: number;
   user?: ReturnUserDto;
   address?: ReturnAddressDto;
   payment?: ReturnPaymentDto;
@@ -15,6 +18,9 @@ export class ReturnOrderDto {
   constructor(order: OrderEntity) {
     this.id = order.id;
     this.date = order.date.toString();
+    this.userId = order.userId;
+    this.addressId = order.addressId;
+    this.paymentId = order.paymentId;
     this.user = order.user ? new ReturnUserDto(order.user) : undefined;
     this.address = order.address
       ? new ReturnAddressDto(order.address)
