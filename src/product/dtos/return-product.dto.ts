@@ -7,8 +7,6 @@ export class ReturnProduct {
   price: number;
   image: string;
   categoryId: number;
-  createdAt: Date;
-  updatedAt: Date;
   category?: ReturnCategoryDto;
 
   constructor(productEntity: ProductEntity) {
@@ -17,8 +15,6 @@ export class ReturnProduct {
     this.price = productEntity.price;
     this.image = productEntity.image;
     this.categoryId = productEntity.categoryId;
-    this.createdAt = productEntity.createdAt;
-    this.updatedAt = productEntity.updatedAt;
     this.category = productEntity.category
       ? new ReturnCategoryDto(productEntity.category)
       : undefined;
