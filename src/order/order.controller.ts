@@ -25,9 +25,21 @@ export class OrderController {
     return this.orderService.findOrdersByUserId(userId);
   }
 
-  @Roles(UserType.Admin, UserType.Root)
+  @Roles(UserType.Admin, UserType.Root, UserType.User)
   @Get('/all')
   async findAllOrders(): Promise<ReturnOrderDto[]> {
-    return (await this.orderService.findAllOrders()).map((order) => new ReturnOrderDto (order));
+    return (await this.orderService.findAllOrders()).map(
+      (order) => new ReturnOrderDto(order),
+    );
+  }
+
+  @Roles(UserType.Admin, UserType.Root, UserType.User)
+  @Get('/:orderId')
+  async findOrderById(
+    @Param('orderId') orderId: number,
+  ): Promise<ReturnOrderDto> {
+    return new ReturnOrderDto(
+      (await this.orderService.findOrdersByUserId(undefined, orderId))[0],
+    );
   }
 }

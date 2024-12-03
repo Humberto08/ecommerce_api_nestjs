@@ -45,7 +45,7 @@ describe('OrderController', () => {
     expect(orders).toEqual([
       {
         id: orderMock.id,
-        date: orderMock.date.toISOString(),
+        date: orderMock.date.toString(),
       },
     ]);
     expect(spy.mock.calls.length).toEqual(1);
