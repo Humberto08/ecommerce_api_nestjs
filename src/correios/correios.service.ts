@@ -8,12 +8,14 @@ import { AxiosError } from 'axios';
 import { CityService } from '../city/city.service';
 import { ReturnCepDto } from './dto/return-cep.dto.js';
 import { ReturnCepExternalDto } from './dto/return-cep-external.dto.ts';
+import { CityEntity } from '../city/entities/city.entity';
 
 @Injectable()
 export class CorreiosService {
   URL_CORREIOS = process.env.URL_CEP_CORREIOS;
-  constructor(private readonly httpService: HttpService,
-    private readonly cityService: CityService
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly cityService: CityService,
   ) {}
 
   async findAddressByCep(cep: string): Promise<ReturnCepDto> {
@@ -32,12 +34,9 @@ export class CorreiosService {
         );
       });
 
-    const city = await this.cityService.findCityByName(
-      returnCep.localidade,
-      returnCep.uf,
-    );
-
-    console.log('city', city)
+    const city: CityEntity | undefined = await this.cityService
+      .findCityByName(returnCep.localidade, returnCep.uf)
+      .catch(() => undefined);
 
     return new ReturnCepDto(returnCep, city?.id, city?.state?.id);
   }
