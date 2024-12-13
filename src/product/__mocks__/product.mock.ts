@@ -9,4 +9,9 @@ export const productMock: ProductEntity = {
   image: 'http://image.com',
   createdAt: new Date(),
   updatedAt: new Date(),
+  diameter: 0,
+  height: 0,
+  length: 0,
+  weight: 0,
+  width: 0,
 };
