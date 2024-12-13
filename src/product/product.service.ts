@@ -1,4 +1,10 @@
-import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from './entities/product.entity';
 import { DeleteResult, In, Repository } from 'typeorm';
@@ -9,6 +15,7 @@ import { CountProduct } from './dtos/count-product.dto';
 import { SizeProductDto } from '../correios/dto/size-product.dto';
 import { CorreiosService } from '../correios/correios.service';
 import { CdServiceEnum } from '../correios/enums/cd-service.enum';
+import { ReturnPriceDeliveryDto } from './dtos/return-price-delivery.dto';
 
 @Injectable()
 export class ProductService {
@@ -22,7 +29,10 @@ export class ProductService {
     private readonly correiosService: CorreiosService,
   ) {}
 
-  async findAll(productId?: number[], isFindRelations?: boolean ): Promise<ProductEntity[]> {
+  async findAll(
+    productId?: number[],
+    isFindRelations?: boolean,
+  ): Promise<ProductEntity[]> {
     let findOptions = {};
 
     if (productId && productId.length > 0) {
@@ -39,7 +49,7 @@ export class ProductService {
         relations: {
           category: true,
         },
-      }
+      };
     }
 
     const products = await this.productRepository.find(findOptions);
@@ -90,20 +100,30 @@ export class ProductService {
   }
 
   async countProdutsByCategoryId(): Promise<CountProduct[]> {
-    return this.productRepository.createQueryBuilder('product')
-    .select('product.category_id, COUNT(*) as total')
-    .groupBy('product.category_id')
-    .getRawMany();
+    return this.productRepository
+      .createQueryBuilder('product')
+      .select('product.category_id, COUNT(*) as total')
+      .groupBy('product.category_id')
+      .getRawMany();
   }
 
   async findPriceDelivery(cep: string, idProduct: number): Promise<any> {
     const product = await this.findProductById(idProduct);
+
     const sizeProduct = new SizeProductDto(product);
-    const returnCorreios = await this.correiosService.priceDelivery(
-      CdServiceEnum.PAC,
-      cep,
-      sizeProduct,
-    );
-    return returnCorreios;
+
+    const resultPrice = await Promise.all([
+      this.correiosService.priceDelivery(CdServiceEnum.PAC, cep, sizeProduct),
+      this.correiosService.priceDelivery(CdServiceEnum.SEDEX, cep, sizeProduct),
+      this.correiosService.priceDelivery(
+        CdServiceEnum.SEDEX10,
+        cep,
+        sizeProduct,
+      ),
+    ]).catch(() => {
+      throw new BadRequestException('Error find delivery price');
+    })
+
+    return new ReturnPriceDeliveryDto(resultPrice);
   }
 }
