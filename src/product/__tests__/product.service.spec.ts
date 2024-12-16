@@ -8,11 +8,13 @@ import { createProductMock } from '../__mocks__/create-product.mock';
 import { CategoryService } from '../../category/category.service';
 import { categoryMock } from '../../category/__mocks__/category.mock';
 import { returnDeleteMock } from '../../__mocks__/return-delete.mock';
+import { CorreiosService } from '../../correios/correios.service';
 
 describe('ProductService', () => {
   let service: ProductService;
   let productRepository: Repository<ProductEntity>;
   let categoryService: CategoryService;
+  let correiosService: CorreiosService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -22,6 +24,12 @@ describe('ProductService', () => {
           provide: CategoryService,
           useValue: {
             findCategoryById: jest.fn().mockResolvedValue(categoryMock),
+          },
+        },
+        {
+          provide: CorreiosService,
+          useValue: {
+            priceDelivery: jest.fn().mockResolvedValue({}),
           },
         },
         {
@@ -37,6 +45,7 @@ describe('ProductService', () => {
     }).compile();
 
     service = module.get<ProductService>(ProductService);
+    correiosService = module.get<CorreiosService>(CorreiosService);
     productRepository = module.get<Repository<ProductEntity>>(
       getRepositoryToken(ProductEntity),
     );
@@ -45,7 +54,9 @@ describe('ProductService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+    expect(categoryService).toBeDefined();
     expect(productRepository).toBeDefined();
+    expect(correiosService).toBeDefined();
   });
 
   it('should return all products', async () => {

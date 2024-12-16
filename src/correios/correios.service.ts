@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { AxiosError } from 'axios';
 import { CityService } from '../city/city.service';
-import { ReturnCepDto } from './dto/return-cep.dto.js';
+import { ReturnCepDto } from './dto/return-cep.dto';
 import { ReturnCepExternalDto } from './dto/return-cep-external.dto.ts';
 import { CityEntity } from '../city/entities/city.entity';
 import { Client } from 'nestjs-soap';
