@@ -118,10 +118,31 @@ describe('ProductService', () => {
     expect(service.createProduct(createProductMock)).rejects.toThrow();
   });
 
-  it('should return product in find by id', async () => {
+ it('should return product in find by id', async () => {
+    const spy = jest.spyOn(productRepository, 'findOne');
     const product = await service.findProductById(productMock.id);
 
     expect(product).toEqual(productMock);
+    expect(spy.mock.calls[0][0]).toEqual({
+      where: {
+        id: productMock.id,
+      },
+    });
+  });
+
+  it('should return product in find by id use relations', async () => {
+    const spy = jest.spyOn(productRepository, 'findOne');
+    const product = await service.findProductById(productMock.id, true);
+
+    expect(product).toEqual(productMock);
+    expect(spy.mock.calls[0][0]).toEqual({
+      where: {
+        id: productMock.id,
+      },
+      relations: {
+        category: true,
+      },
+    });
   });
 
   it('should return error in product not found', async () => {

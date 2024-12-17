@@ -74,9 +74,21 @@ export class ProductService {
     });
   }
 
-  async findProductById(productId: number): Promise<ProductEntity> {
+  async findProductById(
+    productId: number,
+    isRelations?: boolean,
+  ): Promise<ProductEntity> {
+    const relations = isRelations
+      ? {
+          category: true,
+        }
+      : undefined;
+
     const product = await this.productRepository.findOne({
-      where: { id: productId },
+      where: {
+        id: productId,
+      },
+      relations,
     });
 
     if (!product) {
@@ -127,7 +139,7 @@ export class ProductService {
       ),
     ]).catch(() => {
       throw new BadRequestException('Error find delivery price');
-    })
+    });
 
     return new ReturnPriceDeliveryDto(resultPrice);
   }

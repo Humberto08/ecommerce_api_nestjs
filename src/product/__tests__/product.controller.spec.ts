@@ -20,7 +20,7 @@ describe('ProductController', () => {
             createProduct: jest.fn().mockResolvedValue(productMock),
             deleteProduct: jest.fn().mockResolvedValue(returnDeleteMock),
             updateProduct: jest.fn().mockResolvedValue(productMock),
-            findProductByUserId: jest.fn().mockResolvedValue([productMock]),
+            findProductById: jest.fn().mockResolvedValue(productMock),
           },
         },
       ],
@@ -39,22 +39,37 @@ describe('ProductController', () => {
   it('should return returnProduct in findAll', async () => {
     const products = await controller.findAll();
 
-    const simplifiedProducts = products.map(({ id, name, price, image }) => ({
-      id,
-      name,
-      price,
-      image,
-    }));
-
-    expect(simplifiedProducts).toEqual([
+    expect(products).toEqual([
       {
         id: productMock.id,
         name: productMock.name,
         price: productMock.price,
         image: productMock.image,
+        diameter: productMock.diameter,
+        height: productMock.height,
+        length: productMock.length,
+        weight: productMock.weight,
+        width: productMock.width,
       },
     ]);
   });
+
+  it('should return returnProduct in findByProductId', async () => {
+    const products = await controller.findProductById(productMock.id);
+
+    expect(products).toEqual({
+      id: productMock.id,
+      name: productMock.name,
+      price: productMock.price,
+      image: productMock.image,
+      diameter: productMock.diameter,
+      height: productMock.height,
+      length: productMock.length,
+      weight: productMock.weight,
+      width: productMock.width,
+    });
+  });
+
 
   it('should return productEntity in createProduct', async () => {
     const product = await controller.createProduct(createProductMock);
