@@ -8,10 +8,11 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { CategoryEntity } from './entities/category.entity';
-import { CreateCategory } from './dtos/create-category.dto';
+import { CreateCategoryDto } from './dtos/create-category.dto';
 import { ProductService } from '../product/product.service';
 import { ReturnCategoryDto } from './dtos/return-category.dto';
 import { CountProduct } from '../product/dtos/count-product.dto';
+import { UpdateCategoryDto } from './dtos/update-category.dto';
 
 @Injectable()
 export class CategoryService {
@@ -93,7 +94,7 @@ export class CategoryService {
   }
 
   async createCategory(
-    createCategory: CreateCategory,
+    createCategory: CreateCategoryDto,
   ): Promise<CategoryEntity> {
     const category = await this.findCategoryByName(createCategory.name).catch(
       () => undefined,
@@ -114,7 +115,18 @@ export class CategoryService {
     if (category.products?.length > 0) {
       throw new BadRequestException('Category with relations.');
     }
-    
+
     return this.categoryRepository.delete({ id: categoryId });
+  }
+
+  async editCategory(
+    categoryId: number,
+    updateCategory: UpdateCategoryDto,
+  ): Promise<CategoryEntity> {
+    const category = await this.findCategoryById(categoryId);
+    return this.categoryRepository.save({
+      ...category,
+      ...updateCategory,
+    });
   }
 }
