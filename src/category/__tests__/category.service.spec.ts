@@ -137,7 +137,7 @@ describe('CategoryService', () => {
   it('should return error if category with relations', async () => {
     jest.spyOn(categoryRepository, 'findOne').mockResolvedValue({
       ...categoryMock,
-      products: productMock,
+      products: [productMock],
     });
     expect(service.deleteCategory(categoryMock.id)).rejects.toThrow(
       BadRequestException,
