@@ -112,6 +112,12 @@ src/
 └── main.ts              # Ponto de entrada da aplicação
 ```
 
+## Documentação da API
+
+A documentação completa da API está disponível no Postman. Você pode acessá-la através do seguinte link:
+
+[Documentação da API](https://documenter.getpostman.com/view/24656609/2sAYJ1m3F2)
+
 ## Contribuição
 
 Contribuições são bem-vindas! Siga os passos abaixo para contribuir:
