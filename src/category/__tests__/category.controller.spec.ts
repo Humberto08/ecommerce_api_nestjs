@@ -93,4 +93,5 @@ describe('CategoryController', () => {
     expect(spy.mock.calls[0][0]).toEqual(categoryMock.id);
     expect(spy.mock.calls[0][1]).toEqual(true);
   });
+
 });

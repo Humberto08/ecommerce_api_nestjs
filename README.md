@@ -1,73 +1,131 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Ecommerce API NestJS
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descrição
+Uma API para gerenciar operações de e-commerce, construída utilizando o framework [NestJS](https://nestjs.com/). Esta aplicação possui suporte a funcionalidades como cadastro de categorias e produtos, autenticação de usuários, e gerenciamento de pedidos.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tecnologias Utilizadas
 
-## Description
+- **Node.js**
+- **NestJS** (v10.4.1)
+- **TypeScript**
+- **TypeORM**
+- **PostgreSQL**
+- **Jest** (para testes unitários)
+- **Docker** (para ambientes consistentes)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Funcionalidades Principais
 
-## Installation
+- **Categorias**:
+  - Listar todas as categorias.
+  - Buscar uma categoria por ID ou nome.
+  - Criar, editar e excluir categorias.
 
-```bash
-$ npm install
-```
+- **Produtos**:
+  - Listar produtos por categoria.
+  - Criar, editar e excluir produtos.
 
-## Running the app
+- **Autenticação**:
+  - Registro e login de usuários.
+  - Autenticação baseada em JWT.
 
-```bash
-# development
-$ npm run start
+- **Pedidos**:
+  - Criar pedidos para usuários autenticados.
+  - Listar pedidos por usuário.
 
-# watch mode
-$ npm run start:dev
+## Pré-requisitos
 
-# production mode
-$ npm run start:prod
-```
+Certifique-se de ter instalado em sua máquina:
 
-## Test
+- **Node.js** (versão 16 ou superior)
+- **Docker** e **Docker Compose**
+- **PostgreSQL**
+
+## Como Executar o Projeto
+
+### 1. Clonar o Repositório
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+git clone https://github.com/seu-usuario/ecommerce-api-nestjs.git
+cd ecommerce-api-nestjs
 ```
 
-## Support
+### 2. Configurar as Variáveis de Ambiente
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
-## Stay in touch
+```env
+DATABASE_URL=postgres://username:password@localhost:5432/ecommerce
+JWT_SECRET=sua-chave-secreta
+JWT_EXPIRATION=3600
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### 3. Subir os Serviços com Docker
 
-## License
+```bash
+docker-compose up -d
+```
 
-Nest is [MIT licensed](LICENSE).
+### 4. Instalar as Dependências
+
+```bash
+npm install
+```
+
+### 5. Executar as Migrações
+
+```bash
+npm run migration:run
+```
+
+### 6. Iniciar o Servidor
+
+```bash
+npm run start:dev
+```
+
+A API estará disponível em `http://localhost:3000`.
+
+## Testes
+
+Para executar os testes unitários, use o comando:
+
+```bash
+npm run test
+```
+
+Para executar os testes com cobertura:
+
+```bash
+npm run test:cov
+```
+
+## Estrutura do Projeto
+
+```plaintext
+src/
+├── auth/                # Módulo de autenticação
+├── category/            # Módulo de categorias
+├── product/             # Módulo de produtos
+├── order/               # Módulo de pedidos
+├── user/                # Módulo de usuários
+├── shared/              # Código compartilhado (ex: interceptors, filters)
+└── main.ts              # Ponto de entrada da aplicação
+```
+
+## Contribuição
+
+Contribuições são bem-vindas! Siga os passos abaixo para contribuir:
+
+1. Faça um fork do repositório.
+2. Crie uma branch com sua feature ou correção: `git checkout -b minha-feature`.
+3. Commit suas alterações: `git commit -m 'Minha nova feature'`.
+4. Envie para a branch principal: `git push origin minha-feature`.
+5. Abra um Pull Request.
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](./LICENSE) para obter mais informações.
+
+---
+
+Desenvolvido com ❤️ por [Humberto Luciano](https://github.com/Humberto08)

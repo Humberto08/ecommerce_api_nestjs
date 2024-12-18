@@ -1,7 +1,7 @@
 import { ProductEntity } from '../entities/product.entity';
 import { ReturnCategoryDto } from '../../category/dtos/return-category.dto';
 
-export class ReturnProduct {
+export class ReturnProductDto {
   id: number;
   name: string;
   price: number;

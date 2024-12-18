@@ -1,5 +1,5 @@
 import { ReturnOrderDto } from '../../order/dtos/return-order.dto';
-import { ReturnProduct } from '../../product/dtos/return-product.dto';
+import { ReturnProductDto } from '../../product/dtos/return-product.dto';
 import { OrderProductEntity } from '../entities/order-product.entity';
 
 export class ReturnOrderProductDto {
@@ -9,7 +9,7 @@ export class ReturnOrderProductDto {
   amount: number;
   price: number;
   order?: ReturnOrderDto;
-  product?: ReturnProduct;
+  product?: ReturnProductDto;
 
   constructor(orderProduct: OrderProductEntity) {
     this.id = orderProduct.id;
@@ -21,7 +21,7 @@ export class ReturnOrderProductDto {
       ? new ReturnOrderDto(orderProduct.order)
       : undefined;
     this.product = orderProduct.product
-      ? new ReturnProduct(orderProduct.product)
+      ? new ReturnProductDto(orderProduct.product)
       : undefined;
   }
 }
