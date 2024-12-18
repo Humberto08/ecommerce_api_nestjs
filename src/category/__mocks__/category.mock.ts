@@ -1,8 +1,8 @@
 import { CategoryEntity } from '../entities/category.entity';
 
 export const categoryMock: CategoryEntity = {
-  id: 4567,
-  name: 'Category Mock',
   createdAt: new Date(),
+  id: 654743,
+  name: 'categoryMock',
   updatedAt: new Date(),
 };

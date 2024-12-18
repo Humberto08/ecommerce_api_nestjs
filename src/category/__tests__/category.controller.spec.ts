@@ -4,7 +4,7 @@ import { CategoryController } from '../category.controller';
 import { CategoryService } from '../category.service';
 import { categoryMock } from '../__mocks__/category.mock';
 import { createCategoryMock } from '../__mocks__/create-category.mock';
-// import { updateCategoryMock } from '../__mocks__/update-category.mock';
+import { updateCategoryMock } from '../__mocks__/update-category.mock';
 
 describe('CategoryController', () => {
   let controller: CategoryController;
@@ -19,7 +19,7 @@ describe('CategoryController', () => {
             findAllCategories: jest.fn().mockResolvedValue([categoryMock]),
             createCategory: jest.fn().mockResolvedValue(categoryMock),
             deleteCategory: jest.fn().mockResolvedValue(returnDeleteMock),
-            // editCategory: jest.fn().mockResolvedValue(categoryMock),
+            editCategory: jest.fn().mockResolvedValue(categoryMock),
             // findCategoryById: jest.fn().mockResolvedValue(categoryMock),
           },
         },
@@ -55,11 +55,27 @@ describe('CategoryController', () => {
   });
 
   it('should send category id to delete category', async () => {
-    const spy =jest.spyOn(categoryService, 'deleteCategory');
+    const spy = jest.spyOn(categoryService, 'deleteCategory');
 
     await controller.deleteCategory(categoryMock.id);
 
     expect(spy.mock.calls[0][0]).toEqual(categoryMock.id);
   });
 
+  it('should return category in update category', async () => {
+    const category = await controller.editCategory(
+      categoryMock.id,
+      updateCategoryMock,
+    );
+
+    expect(category).toEqual(categoryMock)
+  });
+
+  it('should send category id and body', async () => {
+    const spy = jest.spyOn(categoryService, 'editCategory');
+    await controller.editCategory(categoryMock.id, updateCategoryMock);
+
+    expect(spy.mock.calls[0][0]).toEqual(categoryMock.id);
+    expect(spy.mock.calls[0][1]).toEqual(updateCategoryMock)
+  });
 });
